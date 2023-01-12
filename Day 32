@@ -1,0 +1,29 @@
+#include <stdio.h>
+int main() {
+        FILE * fp;
+        char c;
+        printf("File Handling\n");
+        //open a file
+        fp = fopen("demo.txt", "w");
+        //writing operation
+        while ((c = getchar()) != ' ') {
+            putc(c, fp);
+        }
+        //close file
+        fclose(fp);
+        printf("Data Entered:\n");
+        //reading
+        fp = fopen("demo.txt", "r");
+        printf("1. ");
+        int i = 2;
+        while ((c = getc(fp)) != EOF) {
+            printf("%c", c);
+            if (c=='\n'){
+                printf("%d. ",i);
+                i++;
+            }
+        }
+        fclose(fp);
+        printf("\n");
+        return 0;
+    }
