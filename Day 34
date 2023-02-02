@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int* ptr;
+    int n, i, sum = 0, m;
+
+    printf("Elements: \n");
+    scanf("%d", &n);
+
+    ptr = (int*)calloc(n, sizeof(int));
+
+    if (ptr == NULL) {
+        printf("Fail.\n");
+        exit(0);
+    }
+    else {
+        printf("Allocation Successful.\n");
+        printf("Enter Elements:");
+        for (i = 0; i < n; ++i) {
+            scanf("%d", &ptr[i]);
+        }
+        printf("Array: ");
+        for (i = 0; i < n; ++i) {
+            printf("%d, ", ptr[i]);
+        }
+        printf("\n\nNew Array: \n");
+        scanf("%d", &m);
+        ptr = realloc(ptr, m* sizeof(int));
+        printf("Success.\n");
+        printf("Enter Elements:");
+        for (i = n; i < m; ++i) {
+            scanf("%d", &ptr[i]);
+        }
+        printf("Array: ");
+        for (i = 0; i < n; ++i) {
+            printf("%d, ", ptr[i]);
+        }
+
+        free(ptr);
+    }
+
+    return 0;
+}
