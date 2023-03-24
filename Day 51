@@ -1,0 +1,78 @@
+import random
+
+board=[]
+
+def create_board (board,board_x,board_y,mine_num):
+    mines=0
+    for x in range (0,board_x):
+        board.append ([])
+        for y in range (0,board_y):
+            board[x].append(0)
+
+    while mines!=mine_num:
+         mine_x=random.randint(0,board_x-1)
+         mine_y=random.randint(0,board_y-1)
+         if board[mine_x][mine_y]!=-1:
+              board[mine_x][mine_y]=-1
+              mines+=1
+    return
+
+def print_board (board,board_x,board_y):
+    for x in range (0,board_x):
+        for y in range (0,board_y):
+                print(board[x][y],end=', ')
+        print('')
+
+def play_game(diff):
+    board=[]
+    if diff == 'easy':
+         board_x=10
+         board_y=10
+         mine_num=10
+    if diff == 'medium':
+         board_x=18
+         board_y=18
+         mine_num=40
+    elif diff=='hard':
+        board_x=24
+        board_y=24
+        mine_num=99
+    create_board(board,board_x,board_y,mine_num)
+    print_board(board,board_x,board_y)
+
+while True:
+    print("______________________")
+    print("1. Instruction")
+    print("2. Easy")
+    print("3. Medium")
+    print("4. Hard")
+    print("5. Quit")
+    print("______________________")
+    input1= input("Which Option: ")
+    if input1.isnumeric():
+        if int(input1) == 1:
+            print("Each number that appears means that there is only that number of mines in the surrounding 8 squares.")
+            print("Enter 1 to Quit")
+            print("Press 2 for Example")
+            input2= input("")
+            if int(input2) == 1:
+                pass
+            elif int(input2)==2:
+                 #give example with in game board
+                 pass
+            else:
+                 print("User Did Not Input A Number.")
+        elif int(input1) == 2:
+            diff = 'easy'
+            play_game(diff)
+        elif int(input1) == 3:
+            diff = 'medium'
+            play_game(diff)
+        elif int(input1) ==4:
+            diff = 'hard'
+            play_game(diff)
+        elif int(input1) == 5:
+             raise SystemExit
+        else:
+             print("User Did Not Input A Number.")
+
