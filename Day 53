@@ -1,1 +1,186 @@
 
+import random
+import os
+board=[]
+player_board=[]
+
+def zeroclear(board,player_x,player_y,player_board):
+    
+def create_board (player_board,board,board_x,board_y,mine_num):
+    mines=0
+    for x in range (0,board_x):
+        board.append ([])
+        for y in range (0,board_y):
+            board[x].append(0)
+    for x in range (0,board_x):
+        player_board.append ([])
+        for y in range (0,board_y):
+            player_board[x].append('-')
+
+    while mines!=mine_num:
+         mine_x=random.randint(1,board_x-2)
+         mine_y=random.randint(1,board_y-2)
+         if board[mine_x][mine_y]!=-1:
+              board[mine_x][mine_y]=-1
+              mines+=1
+    nexttomine(board,board_x,board_y)
+    return
+
+def print_board (player_board,board_x,board_y):
+    for x in range (0,board_x):
+        for y in range (0,board_y):
+                print(player_board[x][y],end=' ')
+        print('')
+
+def playthegame(player_board,board,board_x,board_y):
+    input_x=-1
+    input_y=-1
+    flag1=0
+    while True:
+        while input_x!=1:
+            if input_x==-1:
+                player_x=input("Row: ")
+                if player_x.isnumeric():
+                    flag1=1
+                if  flag1==1 and int(player_x)<=int(board_x) and int(player_x)>0:
+                    player_x=int(player_x)-1
+                    input_x=1
+                    flag1=0
+                else:
+                    print("Please Try again")
+
+        while input_y!=1:
+            if input_y==-1:
+                player_y=input("Colum: ")
+                if player_y.isnumeric():
+                    flag1=1
+                if flag1==1 and int(player_y)<=int(board_y) and int(player_y)>0:
+                    player_y=int(player_y)-1
+                    input_y=1
+                    flag1=0
+                else:
+                    print("Please Try again")
+
+        if input_x==1 and input_y==1:
+            player_board[player_x][player_y]=board[player_x][player_y]
+
+            if board[player_x][player_y]==0:
+                zeroclear(board,player_x,player_y,player_board)
+
+            print_board(player_board,board_x,board_y)
+            if board[player_x][player_y]==-1:
+                print("GAME OVER")
+                break
+            input_x=-1
+            input_y=-1
+
+def nexttomine(board,board_x,board_y):
+    for x in range(1,board_x-2):
+        for y in range(1,board_y-2):
+            if board[x][y]==-1:
+
+                if board[x-1][y]==-1:
+                    pass
+                else:
+                    board[x-1][y]+=1
+
+                if board[x-1][y-1]==-1:
+                    pass
+                else:
+                    board[x-1][y-1]+=1
+
+                if board[x-1][y+1]==-1:
+                    pass
+                else:
+                    board[x-1][y+1]+=1
+
+                if board[x+1][y]==-1:
+                    pass
+                else:
+                    board[x+1][y]+=1
+
+                if board[x+1][y-1]==-1:
+                    pass
+                else:
+                    board[x+1][y-1]+=1
+
+                if board[x+1][y+1]==-1:
+                    pass
+                else:
+                    board[x+1][y+1]+=1
+
+                if board[x][y+1]==-1:
+                    pass
+                else:
+                    board[x][y+1]+=1
+
+                if board[x][y-1]==-1:
+                    pass
+                else:
+                    board[x][y-1]+=1
+
+
+
+
+
+def play_game(diff):
+    board=[]
+    if diff == 'easy':
+         board_x=12
+         board_y=12
+         mine_num=10
+    if diff == 'medium':
+         board_x=20
+         board_y=20
+         mine_num=40
+    elif diff=='hard':
+        board_x=26
+        board_y=26
+        mine_num=99
+    create_board(player_board,board,board_x,board_y,mine_num)
+    for x in range (0,board_x):
+        for y in range (0,board_y):
+                print(board[x][y],end=', ')
+        print('')
+    print_board(player_board,board_x,board_y)
+    playthegame(player_board,board,board_x,board_y)
+
+while True:
+    os.system('clear')
+    print("______________________")
+    print("1. Instruction")
+    print("2. Easy")
+    print("3. Medium")
+    print("4. Hard")
+    print("5. Quit")
+    print("______________________")
+    input1= input("Which Option: ")
+    if input1.isnumeric():
+        if int(input1) == 1:
+            print("Each number that appears means that there is only that number of mines in the surrounding 8 squares.")
+            print("Enter 1 to Quit")
+            print("Press 2 for Example")
+            input2= input("")
+            if int(input2) == 1:
+                pass
+            elif int(input2)==2:
+                 #give example with in game board
+                 pass
+            else:
+                 print("User Did Not Input A Number.")
+        elif int(input1) == 2:
+            diff = 'easy'
+            play_game(diff)
+        elif int(input1) == 3:
+            diff = 'medium'
+            play_game(diff)
+        elif int(input1) ==4:
+            diff = 'hard'
+            play_game(diff)
+        elif int(input1) == 5:
+             raise SystemExit
+        else:
+             print("INVALID INPUT")
+    else:
+        print("INVALID INPUT")
+os.system('clear')
